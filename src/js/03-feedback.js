@@ -1,7 +1,7 @@
 
 import throttle from "lodash.throttle";
 
-const STORADE_KEY = "feedback-form-state";
+const STORAGE_KEY = "feedback-form-state";
 const formData = {};
 const refs = {
     form: document.querySelector('.feedback-form'),
@@ -13,12 +13,30 @@ refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', onFormDataInput);
 populateFormData();
 
-function onFormDataInput(evt) {
+
+function onFormSubmit(evt) {
     evt.preventDefault();
-    evt.currentTarget.reset();
+    if (!formData[refs.input.name] || !formData[refs.textarea.name]){
+        alert('enter the text')
+    } else {
+        console.log(formData);
+        evt.currentTarget.reset();
+        localStorage.removeItem(STORAGE_KEY)
+        formData[refs.input.name] = '';
+        formData[refs.textarea.name] = '';
+    }
 }
 
 
 function onFormDataInput(evt) {
-    
+    formData[evt.target.name] = evt.targer.value;
+    localStorage.setItem(STORADE_KEY, JSON.stringify(formData));
+}
+
+function populateFormData() {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+        refs.textarea.value = savedData;
+    }
 }
