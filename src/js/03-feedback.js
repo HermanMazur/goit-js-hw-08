@@ -29,8 +29,8 @@ function onFormSubmit(evt) {
 
 
 function onFormDataInput(evt) {
-    formData[evt.target.name] = evt.targer.value;
-    localStorage.setItem(STORADE_KEY, JSON.stringify(formData));
+    formData[evt.target.name] = evt.target.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function populateFormData() {
